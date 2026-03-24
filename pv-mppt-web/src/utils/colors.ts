@@ -18,7 +18,9 @@ export const chartOptions = {
     tooltip: {
       backgroundColor: 'rgba(3,3,3,.96)',
       titleColor: '#f5c842', bodyColor: '#9b99b6',
-      borderColor: '#252540', borderWidth: 1, padding: 10
+      borderColor: '#252540', borderWidth: 1, padding: 10,
+      mode: 'index' as const,
+      intersect: false
     }
   },
   scales: {

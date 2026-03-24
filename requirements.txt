@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+openmeteo-requests
+requests-cache
+retry-requests
+pandas
+numpy
+sqlmodel
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart

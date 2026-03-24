@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PV MPPT IA — M.A. Essalami — ENIGA 2025-2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="pb"></div>
+
+<!-- Theme toggle -->
+<button class="theme-btn" id="themeBtn" title="Basculer thème" onclick="toggleTheme()">🌙</button>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero" id="heroHdr">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-spotlight" id="heroSpot"></div>
+  <div class="hero-split">
+
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-badge">PFE Ingénieur · ENIGA · LPV Borj Cedria · 2025–2026</div>
+      <h1>Optimisation du Rendement<br>d'un Système <span class="hl">Photovoltaïque</span><br>par les Techniques d'<span class="hl2">Intelligence Artificielle</span></h1>
+      <p class="hero-sub">Étude approfondie des algorithmes MPPT classiques, métaheuristiques et Deep Learning — BP Solar 485J (85W) — données mesurées au laboratoire LPV, Borj Cedria, Tunisie.</p>
+      <div class="hero-pills">
+        <span class="pill"><b>Module :</b> BP Solar 485J</span>
+        <span class="pill"><b>Pmax :</b> 85 W ±5%</span>
+        <span class="pill"><b>Voc :</b> 22.2 V</span>
+        <span class="pill"><b>Isc :</b> 5.35 A</span>
+        <span class="pill"><b>Ns :</b> 36 cellules</span>
+        <span class="pill"><b>NOCT :</b> 47°C</span>
+        <span class="pill"><b>η_best :</b> 99.3%</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-val">2 100</div><div class="hstat-label">GW PV mondial 2026</div></div>
+        <div class="hstat"><div class="hstat-val">99.3%</div><div class="hstat-label">Efficacité Transformer</div></div>
+        <div class="hstat"><div class="hstat-val">10</div><div class="hstat-label">Méthodes MPPT</div></div>
+        <div class="hstat"><div class="hstat-val">38</div><div class="hstat-label">Références citées</div></div>
+      </div>
+      <div class="scroll-cue">Explorer</div>
+    </div>
+
+    <!-- Right: 3D Solar Scene -->
+    <div class="hero-right">
+      <div class="solar-scene">
+        <div class="orb orb1"></div><div class="orb orb2"></div>
+        <div class="orb orb3"></div><div class="orb orb4"></div>
+        <!-- Sun -->
+        <div class="sun-system">
+          <div class="sun-corona">
+            <div class="sun-inner"></div>
+            <div class="sun-rays">
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+              <div class="sun-ray-line"></div><div class="sun-ray-line"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Sunbeams -->
+        <div class="sunbeam" style="height:130px;left:47%;animation-delay:.3s"></div>
+        <div class="sunbeam" style="height:110px;left:51%;animation-delay:.9s"></div>
+        <!-- 3D Panel -->
+        <div class="scene-3d">
+          <div class="panel-assembly">
+            <div class="pv-panel">
+              <div class="pv-grid" id="heroPvGrid"></div>
+              <div class="pv-shine"></div>
+              <div class="panel-top"></div>
+              <div class="panel-right"></div>
+              <div class="panel-bottom-face"></div>
+            </div>
+            <div class="pole-system">
+              <div class="pole-arm"></div>
+              <div class="pole-main"></div>
+              <div class="pole-base"></div>
+              <div class="pole-shadow"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Energy SVG -->
+        <svg class="energy-svg" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="eg1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4f8ef7" stop-opacity=".7"/>
+              <stop offset="100%" stop-color="#a78bfa" stop-opacity=".15"/>
+            </linearGradient>
+            <filter id="gp"><feGaussianBlur stdDeviation="3"/></filter>
+            <filter id="gp2"><feGaussianBlur stdDeviation="1.5"/></filter>
+          </defs>
+          <path d="M185,300 Q165,370 155,430 Q148,470 185,480" stroke="url(#eg1)" stroke-width="1.5" fill="none" stroke-dasharray="8 5"><animate attributeName="stroke-dashoffset" values="0;-260" dur="3s" repeatCount="indefinite"/></path>
+          <path d="M315,300 Q335,370 345,430 Q352,470 315,480" stroke="url(#eg1)" stroke-width="1.5" fill="none" stroke-dasharray="8 5"><animate attributeName="stroke-dashoffset" values="0;-260" dur="3s" begin="0.4s" repeatCount="indefinite"/></path>
+          <path d="M185,480 L315,480" stroke="url(#eg1)" stroke-width="2.5" fill="none" opacity=".7"/>
+          <rect x="218" y="490" width="64" height="38" rx="6" fill="#161624" stroke="#363655" stroke-width="1.2"/>
+          <text x="250" y="514" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="#4f8ef7">MPPT</text>
+          <circle r="5" fill="#f5c842" filter="url(#gp)">
+            <animateMotion dur="2.6s" repeatCount="indefinite" path="M185,300 Q165,370 155,430 Q148,470 185,480 L315,480 Q352,470 345,430 Q335,370 315,300"/>
+            <animate attributeName="opacity" values="0;1;1;1;0" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="4" fill="#4f8ef7" filter="url(#gp2)">
+            <animateMotion dur="2.6s" begin=".87s" repeatCount="indefinite" path="M185,300 Q165,370 155,430 Q148,470 185,480 L315,480 Q352,470 345,430 Q335,370 315,300"/>
+            <animate attributeName="opacity" values="0;1;1;1;0" dur="2.6s" begin=".87s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="3.5" fill="#a78bfa" filter="url(#gp2)">
+            <animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite" path="M185,300 Q165,370 155,430 Q148,470 185,480 L315,480 Q352,470 345,430 Q335,370 315,300"/>
+            <animate attributeName="opacity" values="0;1;1;1;0" dur="2.6s" begin="1.73s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <!-- Data chips -->
+        <div class="data-chip chip1">V<sub>MPP</sub> = 17.6 V</div>
+        <div class="data-chip chip2">I<sub>MPP</sub> = 4.83 A</div>
+        <div class="data-chip chip3">FF = 76.2%</div>
+        <div class="data-chip chip4">G = 1000 W/m²</div>
+        <div class="data-chip chip5">η = 13.1%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ NAV ══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">PV-MPPT-ANN</div>
+    <button class="nav-btn active" onclick="goSec('s1')"><span class="n">1</span>Contexte</button>
+    <button class="nav-btn" onclick="goSec('s2')"><span class="n">2</span>Modèle BP485J</button>
+    <button class="nav-btn" onclick="goSec('s_array')"><span class="n">★</span>Réseau PV</button>
+    <button class="nav-btn" onclick="goSec('s_boost')"><span class="n">B</span>Boost Conv.</button>
+    <button class="nav-btn" onclick="goSec('s3')"><span class="n">3</span>MPPT Classiques</button>
+    <button class="nav-btn" onclick="goSec('s4')"><span class="n">4</span>Métaheuristiques</button>
+    <button class="nav-btn" onclick="goSec('s5')"><span class="n">5</span>Logique Floue</button>
+    <button class="nav-btn" onclick="goSec('s6')"><span class="n">6</span>ANN/ANFIS</button>
+    <button class="nav-btn" onclick="goSec('s7')"><span class="n">7</span>LSTM/GRU</button>
+    <button class="nav-btn" onclick="goSec('s8')"><span class="n">8</span>CNN-LSTM/TF</button>
+    <button class="nav-btn" onclick="goSec('s9')"><span class="n">9</span>Comparaison</button>
+    <button class="nav-btn" onclick="goSec('s10')"><span class="n">10</span>Références</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ══════════ S1 — CONTEXTE ══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-head"><div class="sec-num">01</div><div class="sec-titles"><h2>Contexte & Motivation</h2><div class="sub">Enjeux globaux du photovoltaïque et nécessité du suivi MPPT</div></div></div>
+  <p class="intro">La capacité photovoltaïque mondiale a dépassé <strong>2 100 GW en 2026</strong>. La réduction des coûts de modules de <strong>96% depuis 2000</strong> a propulsé le solaire comme énergie la moins chère de l'histoire. L'extraction du <em>Maximum Power Point</em> (MPP) reste un défi critique.</p>
+  <div class="metrics">
+    <div class="met"><div class="met-val">2 100</div><div class="met-label">GW capacité PV mondiale 2026</div></div>
+    <div class="met"><div class="met-val o">96%</div><div class="met-label">Réduction prix modules 2000→2026</div></div>
+    <div class="met"><div class="met-val g">450</div><div class="met-label">GW installés en 2025 (record)</div></div>
+    <div class="met"><div class="met-val p">99.3%</div><div class="met-label">Efficacité max Transformer MPPT</div></div>
+  </div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Capacité PV Mondiale & Évolution des Coûts (2000–2026)</div><div class="widget-sub">Source : IEA PVPS 2026, IRENA, BNEF</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="showPVChart('capacite',this)">Capacité (GW)</button>
+        <button class="btn" onclick="showPVChart('cout',this)">Coûts (USD/Wc)</button>
+        <button class="btn" onclick="showPVChart('lcoe',this)">LCOE (USD/kWh)</button>
+      </div>
+    </div>
+    <div class="chart-wrap"><canvas id="chartPV"></canvas></div>
+  </div>
+  <div class="cards">
+    <div class="card"><span class="ico">☀️</span><h3>Problème Fondamental</h3><p>La courbe P-V est non-linéaire. Sans MPPT, perte jusqu'à <strong>30–40%</strong>.</p></div>
+    <div class="card o"><span class="ico">⚡</span><h3>Ombrage Partiel</h3><p>Plusieurs maxima locaux. P&O perd jusqu'à <strong>70% du GMP</strong>.</p></div>
+    <div class="card g"><span class="ico">🧠</span><h3>Solution Deep Learning</h3><p>LSTM, CNN-LSTM, Transformer : <strong>η > 99%</strong> même en conditions variables.</p></div>
+    <div class="card p"><span class="ico">📍</span><h3>Contexte Tunisien</h3><p>GHI Borj Cedria : <strong>1 700–2 150 kWh/m²/an</strong>. Objectif 30% ER d'ici 2030.</p></div>
+  </div>
+</section>
+
+<div class="divider">Modèle Physique</div>
+
+<!-- ══════════ S2 — BP485J MODEL ══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-head"><div class="sec-num">02</div><div class="sec-titles"><h2>Modèle BP Solar 485J — Module Individuel</h2><div class="sub">Modèle à une diode — De Soto et al. Solar Energy 80(1):78-88, 2006</div></div></div>
+  <p class="intro">Le module <strong>BP Solar 485J</strong> (36 cellules, Pmax = 85W ±5%) est modélisé par l'équation implicite du modèle à une <em>diode</em>. Ajustez les curseurs pour recalculer les courbes en temps réel.</p>
+  <div class="eq">
+    <span class="eq-label">Équation implicite — modèle à une diode</span>
+    I = I_L − I_0·[exp((V+I·Rs)/(n·Ns·VT))−1] − (V+I·Rs)/Rsh<br>
+    I_L(G,T) = (G/Gref)·[IL,ref + α·(Tc−Tref)]
+  </div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Courbes I-V et P-V — Module BP Solar 485J</div><div class="widget-sub">Recalcul en temps réel — 1 module individuel</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="setIVmode('iv',this)">I-V</button>
+        <button class="btn" onclick="setIVmode('pv',this)">P-V</button>
+        <button class="btn" onclick="setIVmode('both',this)">Les deux</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Irradiance G (W/m²)</label><div class="val"><span id="G_val">1000</span></div><input type="range" id="G_sl" min="100" max="1000" step="50" value="1000" oninput="updateIV()"><div class="range-ends"><span>100</span><span>1000</span></div></div>
+      <div class="ctrl-group"><label>Température T (°C)</label><div class="val"><span id="T_val">25</span></div><input type="range" id="T_sl" min="0" max="80" step="5" value="25" oninput="updateIV()"><div class="range-ends"><span>0</span><span>80</span></div></div>
+      <div class="ctrl-group"><label>R_s (Ω)</label><div class="val"><span id="Rs_val">0.32</span></div><input type="range" id="Rs_sl" min="0" max="200" step="1" value="32" oninput="updateIV()"><div class="range-ends"><span>0</span><span>2</span></div></div>
+      <div class="ctrl-group"><label>R_sh (Ω)</label><div class="val"><span id="Rsh_val">200</span></div><input type="range" id="Rsh_sl" min="10" max="500" step="10" value="200" oninput="updateIV()"><div class="range-ends"><span>10</span><span>500</span></div></div>
+    </div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartIV"></canvas></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-label">P_MPP</div><div class="kpi-val" id="kp_pmpp" style="color:var(--orange)">—</div></div>
+      <div class="kpi"><div class="kpi-label">V_MPP</div><div class="kpi-val" id="kp_vmpp" style="color:var(--blue)">—</div></div>
+      <div class="kpi"><div class="kpi-label">I_MPP</div><div class="kpi-val" id="kp_impp" style="color:var(--blue)">—</div></div>
+      <div class="kpi"><div class="kpi-label">V_oc</div><div class="kpi-val" id="kp_voc" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">I_sc</div><div class="kpi-val" id="kp_isc" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">FF</div><div class="kpi-val" id="kp_ff" style="color:var(--purple)">—</div></div>
+      <div class="kpi"><div class="kpi-label">η</div><div class="kpi-val" id="kp_eta" style="color:var(--purple)">—</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Configuration du Réseau PV</div>
+
+<!-- ══════════ S_ARRAY ══════════ -->
+<section class="sec" id="s_array">
+  <div class="sec-head"><div class="sec-num">★</div><div class="sec-titles"><h2>Réseau de Modules PV — Configurateur Interactif</h2><div class="sub">Définissez votre réseau — toutes les simulations MPPT s'adaptent</div></div></div>
+  <p class="intro">Configurez votre réseau BP Solar 485J en définissant les modules en <em>série</em> (N_s — augmente la tension) et en <em>parallèle</em> (N_p — augmente le courant). <strong>Toutes les simulations suivantes utilisent ce réseau.</strong></p>
+
+  <div class="pv-config-panel">
+    <div class="config-grid">
+      <div class="config-field"><label>Modules en Série (N_s)</label><input type="number" id="cfg_ns" min="1" max="20" value="2" oninput="onCfgChange()"><div class="cfg-hint">↑ Tension × N_s</div></div>
+      <div class="config-field"><label>Modules en Parallèle (N_p)</label><input type="number" id="cfg_np" min="1" max="20" value="3" oninput="onCfgChange()"><div class="cfg-hint">↑ Courant × N_p</div></div>
+      <div class="config-field"><label>Irradiance G (W/m²)</label><input type="number" id="cfg_g" min="100" max="1200" value="1000" oninput="onCfgChange()"><div class="cfg-hint">Ensoleillement</div></div>
+      <div class="config-field"><label>Température T (°C)</label><input type="number" id="cfg_t" min="0" max="80" value="25" oninput="onCfgChange()"><div class="cfg-hint">Température cellule</div></div>
+    </div>
+    <div class="cfg-viz-label">Visualisation du réseau (N_s × N_p)</div>
+    <div class="array-viz" id="arrayViz"></div>
+    <div class="array-kpi-grid">
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_pmax" style="color:var(--orange)">—</div><div class="array-kpi-label">P_MPP (W)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_voc" style="color:var(--blue)">—</div><div class="array-kpi-label">V_oc réseau (V)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_isc" style="color:var(--green)">—</div><div class="array-kpi-label">I_sc réseau (A)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_vmpp" style="color:var(--purple)">—</div><div class="array-kpi-label">V_MPP (V)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_impp" style="color:var(--teal)">—</div><div class="array-kpi-label">I_MPP (A)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="ak_total" style="color:var(--gold)">—</div><div class="array-kpi-label">Total modules</div></div>
+    </div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title" id="arrayChartTitle">Courbes réseau 2s×3p</div><div class="widget-sub">Basé sur votre configuration</div></div>
+      <div class="btn-row">
+        <button class="btn active" data-group="array-mode" onclick="setArrayMode('iv',this)">I-V</button>
+        <button class="btn" data-group="array-mode" onclick="setArrayMode('pv',this)">P-V</button>
+        <button class="btn" data-group="array-mode" onclick="setArrayMode('both',this)">Les deux</button>
+        <button class="btn" data-group="array-mode" onclick="setArrayMode('multi',this)">Multi-G</button>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:340px"><canvas id="chartArray"></canvas></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-label">P_MPP réseau</div><div class="kpi-val" id="arr_pmpp" style="color:var(--orange)">—</div></div>
+      <div class="kpi"><div class="kpi-label">V_MPP réseau</div><div class="kpi-val" id="arr_vmpp" style="color:var(--blue)">—</div></div>
+      <div class="kpi"><div class="kpi-label">I_MPP réseau</div><div class="kpi-val" id="arr_impp" style="color:var(--blue)">—</div></div>
+      <div class="kpi"><div class="kpi-label">V_oc réseau</div><div class="kpi-val" id="arr_voc" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">I_sc réseau</div><div class="kpi-val" id="arr_isc" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">Puissance nominale</div><div class="kpi-val" id="arr_total" style="color:var(--gold)">—</div></div>
+    </div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Courbe P-V sous Ombrage Partiel</div><div class="widget-sub">Simulation multi-maxima — réseau configuré</div></div>
+      <div class="btn-row">
+        <button class="btn active" data-group="shade-level" onclick="setShadeLevel(0,this)">Sans ombrage</button>
+        <button class="btn" data-group="shade-level" onclick="setShadeLevel(30,this)">Ombrage 30%</button>
+        <button class="btn" data-group="shade-level" onclick="setShadeLevel(50,this)">Ombrage 50%</button>
+        <button class="btn" data-group="shade-level" onclick="setShadeLevel(70,this)">Ombrage 70%</button>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartArrayShade"></canvas></div>
+    <div class="status-row">
+      <span>GMP : <strong id="shade_gmp" style="color:var(--orange)">—</strong></span>
+      <span>LMP : <strong id="shade_lmp" style="color:var(--text2)">—</strong></span>
+      <span>Perte ombrage : <strong id="shade_loss" style="color:var(--red)">—</strong></span>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Convertisseur Boost DC-DC</div>
+
+<!-- ══════════ S_BOOST ══════════ -->
+<section class="sec" id="s_boost">
+  <div class="sec-head"><div class="sec-num">⚡</div><div class="sec-titles"><h2>Convertisseur Boost DC-DC — Dimensionnement MPPT</h2><div class="sub">CCM · Ayop & Tan (Solar Energy 2018) · Mohan et al. (Wiley 2003) · MDPI Sustainability 2023</div></div></div>
+  <p class="intro">Le convertisseur Boost adapte l'impédance entre le réseau PV et la charge pour permettre le suivi MPPT. En mode de conduction continu (CCM), les paramètres sont calculés directement depuis les valeurs MPP de <em>votre réseau configuré</em>.</p>
+  <div class="eq">
+    <span class="eq-label">Formules CCM — [Ayop & Tan, Solar Energy 160:322-335, 2018] [Mohan et al., Power Electronics, Wiley 2003]</span>
+    D = 1 − V_MPP/V_out &nbsp;&nbsp;&nbsp; L = V_MPP·D/(ΔiL·fs) &nbsp;&nbsp;&nbsp; Cin = I_MPP·D/(ΔVin·fs)<br>
+    Cout = I_out·D/(ΔVout·fs) &nbsp;&nbsp;&nbsp; R_opt = V²_MPP/P_MPP &nbsp;&nbsp;&nbsp; V_out = V_MPP/(1−D)
+  </div>
+  <div class="pv-config-panel">
+    <div class="config-grid">
+      <div class="config-field"><label>Tension sortie V_out (V)</label><input type="number" id="b_vout" min="10" max="2000" value="48" oninput="updateBoost()"><div class="cfg-hint">Tension bus DC</div></div>
+      <div class="config-field"><label>Fréquence fs (kHz)</label><input type="number" id="b_fs" min="1" max="500" value="20" oninput="updateBoost()"><div class="cfg-hint">Découpage</div></div>
+      <div class="config-field"><label>Ondulation ΔiL (%)</label><input type="number" id="b_dil" min="5" max="50" value="30" oninput="updateBoost()"><div class="cfg-hint">% du I_MPP</div></div>
+      <div class="config-field"><label>Ondulation ΔVin (%)</label><input type="number" id="b_dvin" min="0.1" max="5" step="0.1" value="1" oninput="updateBoost()"><div class="cfg-hint">% de V_MPP</div></div>
+      <div class="config-field"><label>Ondulation ΔVout (%)</label><input type="number" id="b_dvout" min="0.1" max="5" step="0.1" value="1" oninput="updateBoost()"><div class="cfg-hint">% de V_out</div></div>
+      <div class="config-field"><label>Rendement η_conv (%)</label><input type="number" id="b_eff" min="80" max="99" value="95" oninput="updateBoost()"><div class="cfg-hint">Efficacité conv.</div></div>
+    </div>
+    <div class="array-kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_d" style="color:var(--blue)">—</div><div class="array-kpi-label">Rapport cyclique D</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_L" style="color:var(--orange)">—</div><div class="array-kpi-label">Inductance L (mH)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Cin" style="color:var(--green)">—</div><div class="array-kpi-label">C_in (µF)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Cout" style="color:var(--purple)">—</div><div class="array-kpi-label">C_out (µF)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Iavg" style="color:var(--teal)">—</div><div class="array-kpi-label">I_L moyen (A)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Ipeak" style="color:var(--gold)">—</div><div class="array-kpi-label">I_L crête (A)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Ropt" style="color:var(--pink)">—</div><div class="array-kpi-label">R_opt MPP (Ω)</div></div>
+      <div class="array-kpi"><div class="array-kpi-val" id="bk_Pout" style="color:var(--red)">—</div><div class="array-kpi-label">P_out (W)</div></div>
+    </div>
+  </div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Rapport Cyclique & Gain vs V_out</div><div class="widget-sub">D = 1 − V_MPP/V_out — point de design marqué ★</div></div>
+      <div class="btn-row">
+        <button class="btn active" data-group="boost1" onclick="setBoostChart('duty',this)">D vs V_out</button>
+        <button class="btn" data-group="boost1" onclick="setBoostChart('inductor',this)">L vs fs</button>
+        <button class="btn" data-group="boost1" onclick="setBoostChart('caps',this)">C_in & C_out</button>
+        <button class="btn" data-group="boost1" onclick="setBoostChart('sweep',this)">D sweep</button>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartBoost1"></canvas></div>
+    <div class="status-row">
+      <span>V_in = V_MPP : <strong id="bst_vin" style="color:var(--blue)">—</strong></span>
+      <span>V_out cible : <strong id="bst_vout" style="color:var(--orange)">—</strong></span>
+      <span>D = <strong id="bst_d" style="color:var(--green)">—</strong></span>
+      <span>I_out = <strong id="bst_iout" style="color:var(--purple)">—</strong></span>
+    </div>
+  </div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Forme d'onde inducteur & Cartes de dimensionnement</div><div class="widget-sub">CCM — courant triangulaire, tension inducteur, carte L et C</div></div>
+      <div class="btn-row">
+        <button class="btn active" data-group="boost2" onclick="setBoostChart2('wave',this)">Forme d'onde i_L</button>
+        <button class="btn" data-group="boost2" onclick="setBoostChart2('Lmap',this)">Carte L vs fs</button>
+        <button class="btn" data-group="boost2" onclick="setBoostChart2('Cmap',this)">Carte C vs ΔV</button>
+        <button class="btn" data-group="boost2" onclick="setBoostChart2('eta',this)">η vs Charge</button>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:320px"><canvas id="chartBoost2"></canvas></div>
+  </div>
+  <div class="cards">
+    <div class="card gold"><span class="ico">📘</span><h3>Ayop & Tan (2018)</h3><p>R_opt = V²_MPP/P_MPP. Impédance d'entrée boost = R_opt·(1−D)². <em>Solar Energy</em> 160:322–335.</p></div>
+    <div class="card"><span class="ico">📗</span><h3>Hashim et al. (2018)</h3><p>Effet de L et C sur la réponse transitoire MPPT. Temps de réglage ∝ L·C. <em>IOP Conf. Series</em> 495.</p></div>
+    <div class="card o"><span class="ico">📙</span><h3>MDPI Sustainability (2023)</h3><p>Dimensionnement Cin par averaging état-espace. Boost non-isolé pour MPPT PV. <em>Sustainability</em> 15(7):6321.</p></div>
+    <div class="card p"><span class="ico">📕</span><h3>Mohan et al. (2003)</h3><p>L = Vin·D/(ΔiL·fs), Cout = Iout·D/(ΔVout·fs). <em>Power Electronics</em>, 3ème éd., Wiley.</p></div>
+  </div>
+</section>
+
+<div class="divider">Algorithmes MPPT Classiques</div>
+
+<!-- ══════════ S3 — MPPT ══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-head"><div class="sec-num">03</div><div class="sec-titles"><h2>Algorithmes MPPT Classiques</h2><div class="sub">P&O, INC, Hill Climbing — convergence sur votre réseau PV</div></div></div>
+  <p class="intro"><strong>P&O</strong> perturbe la tension périodiquement. <strong>INC</strong> exploite dP/dV = 0 au MPP. La simulation ci-dessous opère sur <em>votre réseau PV configuré</em>.</p>
+  <div class="eq"><span class="eq-label">Condition INC — dP/dV = 0</span>dP/dV = I + V·(dI/dV) = 0 → dI/dV = −I/V</div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title" id="mpptTitle">Convergence MPPT — Réseau 2s×3p</div><div class="widget-sub">Simulation temps réel — réseau configuré</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="selectMPPT('po',this)">P&O</button>
+        <button class="btn" onclick="selectMPPT('inc',this)">INC</button>
+        <button class="btn" onclick="selectMPPT('both',this)">Comparer</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Irradiance G_sim (W/m²)</label><div class="val"><span id="G_sim_val">1000</span></div><input type="range" id="G_sim" min="200" max="1200" step="50" value="1000" oninput="runMPPT()"><div class="range-ends"><span>200</span><span>1200</span></div></div>
+      <div class="ctrl-group"><label>Pas ΔV/module (V)</label><div class="val"><span id="dV_val">0.50</span></div><input type="range" id="dV_sl" min="5" max="200" step="5" value="50" oninput="runMPPT()"><div class="range-ends"><span>0.05</span><span>2.0</span></div></div>
+      <div class="ctrl-group"><label>Température T_sim (°C)</label><div class="val"><span id="T_sim_val">25</span></div><input type="range" id="T_sim" min="0" max="75" step="5" value="25" oninput="runMPPT()"><div class="range-ends"><span>0</span><span>75</span></div></div>
+      <div class="ctrl-group"><label>Itérations max</label><div class="val"><span id="nit_val">100</span></div><input type="range" id="nit_sl" min="20" max="300" step="10" value="100" oninput="runMPPT()"><div class="range-ends"><span>20</span><span>300</span></div></div>
+    </div>
+    <div class="chart-wrap" style="height:310px"><canvas id="chartMPPT"></canvas></div>
+    <div class="status-row">
+      <span>η P&O : <strong id="eff_po" style="color:var(--orange)">—</strong></span>
+      <span>η INC : <strong id="eff_inc" style="color:var(--blue)">—</strong></span>
+      <span>P_MPP réseau théorique : <strong id="pm_theory" style="color:var(--green)">—</strong></span>
+      <span>Conv. P&O : <strong id="conv_po">—</strong> it.</span>
+      <span>Conv. INC : <strong id="conv_inc">—</strong> it.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Optimisation Métaheuristique</div>
+
+<!-- ══════════ S4 — META ══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-head"><div class="sec-num">04</div><div class="sec-titles"><h2>Algorithmes Métaheuristiques — PSO, GWO, GA</h2><div class="sub">Optimisation globale ombrage partiel — réseau PV configuré</div></div></div>
+  <p class="intro">Sous ombrage partiel, le réseau présente plusieurs maxima locaux. Les algorithmes bio-inspirés explorent l'espace globalement. Simulation sur <em>votre réseau</em>.</p>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title" id="metaTitle">PSO — Convergence GMP réseau 2s×3p</div><div class="widget-sub">Ombrage partiel — réseau BP Solar 485J configuré</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="selectMeta('pso',this)">PSO</button>
+        <button class="btn" onclick="selectMeta('gwo',this)">GWO</button>
+        <button class="btn" onclick="selectMeta('ga',this)">GA</button>
+        <button class="btn o" onclick="runMeta()">▶ Relancer</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Particules</label><div class="val"><span id="np_val">8</span></div><input type="range" id="np_sl" min="4" max="20" step="1" value="8" oninput="document.getElementById('np_val').textContent=this.value"><div class="range-ends"><span>4</span><span>20</span></div></div>
+      <div class="ctrl-group"><label>Inertie w</label><div class="val"><span id="w_val">0.70</span></div><input type="range" id="w_sl" min="30" max="90" step="5" value="70" oninput="document.getElementById('w_val').textContent=(this.value/100).toFixed(2)"><div class="range-ends"><span>0.3</span><span>0.9</span></div></div>
+      <div class="ctrl-group"><label>Itérations max</label><div class="val"><span id="mxit_val">50</span></div><input type="range" id="mxit_sl" min="10" max="100" step="5" value="50" oninput="document.getElementById('mxit_val').textContent=this.value;runMeta()"><div class="range-ends"><span>10</span><span>100</span></div></div>
+      <div class="ctrl-group"><label>Ombrage (%)</label><div class="val"><span id="shade_val">50</span></div><input type="range" id="shade_sl" min="10" max="90" step="10" value="50" oninput="document.getElementById('shade_val').textContent=this.value;runMeta()"><div class="range-ends"><span>10%</span><span>90%</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div><p class="chart-label">P-V réseau ombré + GMP</p><div style="height:220px;position:relative"><canvas id="chartPSO_pv"></canvas></div></div>
+      <div><p class="chart-label">Convergence <span id="meta_label">PSO</span></p><div style="height:220px;position:relative"><canvas id="chartPSO_conv"></canvas></div></div>
+    </div>
+    <div class="status-row">
+      <span>GMP trouvé : <strong id="gmp_found" style="color:var(--orange)">—</strong></span>
+      <span>Iterations : <strong id="meta_iters" style="color:var(--blue)">—</strong></span>
+      <span>Efficacité : <strong id="meta_eff" style="color:var(--green)">—</strong></span>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Logique Floue</div>
+
+<!-- ══════════ S5 — FUZZY ══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-head"><div class="sec-num">05</div><div class="sec-titles"><h2>Contrôleur à Logique Floue (FLC)</h2><div class="sub">Règles Mamdani — Variables linguistiques</div></div></div>
+  <p class="intro">La logique floue modélise l'expertise humaine via des <em>règles linguistiques</em>. Entrées : <strong>E = dP/dV</strong> et <strong>CE = ΔE</strong>. Le FLC atteint <strong>η ≈ 97.5%</strong>.</p>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Fonctions d'Appartenance — Fuzzification</div><div class="widget-sub">Visualisation dynamique des degrés d'appartenance</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="setFuzzy('E',this)">Variable E</button>
+        <button class="btn" onclick="setFuzzy('CE',this)">Variable CE</button>
+        <button class="btn" onclick="setFuzzy('OUT',this)">Sortie ΔV</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group" style="flex:2"><label>Valeur d'entrée (E normalisé)</label><div class="val"><span id="fuzzy_e_val">0.00</span></div><input type="range" id="fuzzy_e_sl" min="-100" max="100" step="1" value="0" oninput="updateFuzzy()"><div class="range-ends"><span>−1.0 (NB)</span><span>+1.0 (PB)</span></div></div>
+      <div class="fuzzy-box">
+        <div class="fb-label">Degrés d'appartenance</div>
+        <div>NB: <strong id="mu_nb" style="color:var(--red)">0.00</strong></div>
+        <div>NS: <strong id="mu_ns" style="color:var(--orange)">0.00</strong></div>
+        <div>ZE: <strong id="mu_ze" style="color:var(--green)">0.00</strong></div>
+        <div>PS: <strong id="mu_ps" style="color:var(--blue)">0.00</strong></div>
+        <div>PB: <strong id="mu_pb" style="color:var(--purple)">0.00</strong></div>
+        <div style="margin-top:.4rem;padding-top:.4rem;border-top:1px solid var(--border)">Sortie: <strong id="fuzzy_out" style="color:var(--orange)">—</strong></div>
+      </div>
+    </div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartFuzzy"></canvas></div>
+  </div>
+</section>
+
+<div class="divider">Deep Learning — ANN</div>
+
+<!-- ══════════ S6 — ANN ══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-head"><div class="sec-num">06</div><div class="sec-titles"><h2>Architectures ANN — MLP, ANFIS</h2><div class="sub">Prédiction directe V_MPP du réseau</div></div></div>
+  <p class="intro">Le <strong>MLP</strong> prédit V_MPP du réseau depuis (G, T, N_s, N_p). <strong>η = 98.3%</strong>, &lt;1 ms. <strong>ANFIS</strong> : η = 98.5%.</p>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Entraînement ANN — Courbes MSE</div><div class="widget-sub">Dataset BP Solar 485J — Adam optimizer</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="selectANN('mlp',this)">MLP</button>
+        <button class="btn" onclick="selectANN('anfis',this)">ANFIS</button>
+        <button class="btn" onclick="selectANN('compare',this)">Comparer</button>
+        <button class="btn o" onclick="rerunANN()">▶ Rejouer</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Couches cachées</label><div class="val"><span id="layers_val">3</span></div><input type="range" id="layers_sl" min="1" max="5" step="1" value="3" oninput="document.getElementById('layers_val').textContent=this.value;rerunANN()"><div class="range-ends"><span>1</span><span>5</span></div></div>
+      <div class="ctrl-group"><label>Neurones/couche</label><div class="val"><span id="neurons_val">32</span></div><input type="range" id="neurons_sl" min="8" max="128" step="8" value="32" oninput="document.getElementById('neurons_val').textContent=this.value;rerunANN()"><div class="range-ends"><span>8</span><span>128</span></div></div>
+      <div class="ctrl-group"><label>Taux d'apprentissage</label><div class="val"><span id="lr_val">0.0010</span></div><input type="range" id="lr_sl" min="1" max="50" step="1" value="10" oninput="document.getElementById('lr_val').textContent=(this.value/10000).toFixed(4);rerunANN()"><div class="range-ends"><span>0.0001</span><span>0.005</span></div></div>
+      <div class="ctrl-group"><label>Epoques</label><div class="val"><span id="epochs_val">200</span></div><input type="range" id="epochs_sl" min="50" max="500" step="50" value="200" oninput="document.getElementById('epochs_val').textContent=this.value;rerunANN()"><div class="range-ends"><span>50</span><span>500</span></div></div>
+    </div>
+    <div class="chart-wrap" style="height:280px"><canvas id="chartANN"></canvas></div>
+  </div>
+</section>
+
+<div class="divider">Réseaux Récurrents</div>
+
+<!-- ══════════ S7 — LSTM ══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-head"><div class="sec-num">07</div><div class="sec-titles"><h2>LSTM & GRU — Mémoire Temporelle</h2><div class="sub">Prédiction P_MPP du réseau sur séquences temporelles</div></div></div>
+  <p class="intro"><strong>LSTM</strong> (Hochreiter 1997) : 3 portes, η = 98.9%, +29.82% vs P&O. <strong>GRU</strong> : 2 portes, 75% moins de paramètres.</p>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title" id="lstmTitle">Prédiction P_MPP réseau 2s×3p</div><div class="widget-sub">Simulation séquence temporelle</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="setRNNview('pred',this)">Prédiction</button>
+        <button class="btn" onclick="setRNNview('error',this)">Erreur</button>
+        <button class="btn" onclick="setRNNview('training',this)">Apprentissage</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Longueur séquence</label><div class="val"><span id="seq_val">24</span> pas</div><input type="range" id="seq_sl" min="6" max="96" step="6" value="24" oninput="document.getElementById('seq_val').textContent=this.value;updateRNN()"><div class="range-ends"><span>6</span><span>96</span></div></div>
+      <div class="ctrl-group"><label>Couches LSTM</label><div class="val"><span id="lstml_val">2</span></div><input type="range" id="lstml_sl" min="1" max="4" step="1" value="2" oninput="document.getElementById('lstml_val').textContent=this.value;updateRNN()"><div class="range-ends"><span>1</span><span>4</span></div></div>
+      <div class="ctrl-group"><label>Unités cachées</label><div class="val"><span id="lstmu_val">64</span></div><input type="range" id="lstmu_sl" min="16" max="256" step="16" value="64" oninput="document.getElementById('lstmu_val').textContent=this.value;updateRNN()"><div class="range-ends"><span>16</span><span>256</span></div></div>
+      <div class="ctrl-group"><label>Dropout</label><div class="val"><span id="drop_val">0.20</span></div><input type="range" id="drop_sl" min="0" max="50" step="5" value="20" oninput="document.getElementById('drop_val').textContent=(this.value/100).toFixed(2);updateRNN()"><div class="range-ends"><span>0.00</span><span>0.50</span></div></div>
+    </div>
+    <div class="chart-wrap" style="height:300px"><canvas id="chartLSTM"></canvas></div>
+    <div class="status-row">
+      <span>LSTM RMSE : <strong id="lstm_rmse" style="color:var(--purple)">—</strong></span>
+      <span>GRU RMSE : <strong id="gru_rmse" style="color:var(--green)">—</strong></span>
+      <span>MLP RMSE : <strong id="mlp_rmse" style="color:var(--orange)">—</strong></span>
+      <span>LSTM R² : <strong id="lstm_r2" style="color:var(--purple)">—</strong></span>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Architectures Hybrides</div>
+
+<!-- ══════════ S8 — HYBRID ══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-head"><div class="sec-num">08</div><div class="sec-titles"><h2>CNN–LSTM & Transformer</h2><div class="sub">État de l'art 2025 — Features + Mémoire + Attention</div></div></div>
+  <p class="intro"><strong>CNN–LSTM</strong> : η = 99.1%, MAE = 0.551%. <strong>Transformer</strong> (Vaswani 2017) : η = 99.3%, RMSE = 0.11 W.</p>
+  <div class="eq"><span class="eq-label">Attention [Vaswani 2017]</span>Attention(Q,K,V) = softmax(Q·Kᵀ/√d_k)·V &nbsp; MHA = Concat(head₁,...,head_h)·W_O</div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">CNN–LSTM vs Transformer</div><div class="widget-sub">Impact architectural sur η et RMSE</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="setHybrid('cnnlstm',this)">CNN–LSTM</button>
+        <button class="btn" onclick="setHybrid('transformer',this)">Transformer</button>
+        <button class="btn" onclick="setHybrid('compare',this)">Comparaison</button>
+      </div>
+    </div>
+    <div class="widget-controls">
+      <div class="ctrl-group"><label>Filtres CNN</label><div class="val"><span id="cnn_f_val">64</span></div><input type="range" id="cnn_f_sl" min="16" max="256" step="16" value="64" oninput="document.getElementById('cnn_f_val').textContent=this.value;updateHybrid()"><div class="range-ends"><span>16</span><span>256</span></div></div>
+      <div class="ctrl-group"><label>Têtes attention h</label><div class="val"><span id="heads_val">8</span></div><input type="range" id="heads_sl" min="1" max="16" step="1" value="8" oninput="document.getElementById('heads_val').textContent=this.value;updateHybrid()"><div class="range-ends"><span>1</span><span>16</span></div></div>
+      <div class="ctrl-group"><label>d_model</label><div class="val"><span id="dmodel_val">128</span></div><input type="range" id="dmodel_sl" min="32" max="512" step="32" value="128" oninput="document.getElementById('dmodel_val').textContent=this.value;updateHybrid()"><div class="range-ends"><span>32</span><span>512</span></div></div>
+      <div class="ctrl-group"><label>Blocs encoder N</label><div class="val"><span id="nblocks_val">4</span></div><input type="range" id="nblocks_sl" min="1" max="8" step="1" value="4" oninput="document.getElementById('nblocks_val').textContent=this.value;updateHybrid()"><div class="range-ends"><span>1</span><span>8</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div><p class="chart-label">Efficacité η vs Configuration</p><div style="height:220px;position:relative"><canvas id="chartHybrid_eff"></canvas></div></div>
+      <div><p class="chart-label">Prédiction vs Réalité</p><div style="height:220px;position:relative"><canvas id="chartHybrid_pred"></canvas></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">Comparaison Globale</div>
+
+<!-- ══════════ S9 — COMPARISON ══════════ -->
+<section class="sec" id="s9">
+  <div class="sec-head"><div class="sec-num">09</div><div class="sec-titles"><h2>Comparaison Multi-Critères</h2><div class="sub">12 méthodes MPPT — Radar interactif — Cliquez une ligne du tableau</div></div></div>
+  <div class="widget">
+    <div class="widget-head">
+      <div><div class="widget-title">Tableau de bord comparatif — 12 méthodes MPPT</div><div class="widget-sub">Filtre par catégorie · Radar interactif</div></div>
+      <div class="btn-row">
+        <button class="btn active" onclick="filterMethods('all',this)">Toutes</button>
+        <button class="btn" onclick="filterMethods('conv',this)">Conventionnelles</button>
+        <button class="btn" onclick="filterMethods('meta',this)">Métaheuristiques</button>
+        <button class="btn" onclick="filterMethods('deep',this)">Deep Learning</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:.9rem">
+      <div><p class="chart-label">Efficacité η (%)</p><div style="height:260px;position:relative"><canvas id="chartEffBar"></canvas></div></div>
+      <div><p class="chart-label">Radar multi-critères — cliquer sur une ligne</p><div style="height:260px;position:relative"><canvas id="chartRadar"></canvas></div></div>
+    </div>
+    <div><p class="chart-label">Ripple vs Efficacité — Taille = Anti-ombrage</p><div style="height:200px;position:relative"><canvas id="chartScatter"></canvas></div></div>
+  </div>
+  <table class="tbl">
+    <thead><tr><th>Méthode</th><th>Catégorie</th><th>η (STC)</th><th>η (Ombrage)</th><th>Ripple</th><th>Données</th><th>Score</th></tr></thead>
+    <tbody id="comparison_tbody"></tbody>
+  </table>
+</section>
+
+<div class="divider">Références</div>
+
+<!-- ══════════ S10 — REFS ══════════ -->
+<section class="sec" id="s10">
+  <div class="sec-head"><div class="sec-num">10</div><div class="sec-titles"><h2>Références Bibliographiques</h2><div class="sub">IEEE · Nature · Springer · MDPI — 2020-2025</div></div></div>
+  <div class="metrics">
+    <div class="met"><div class="met-val">38</div><div class="met-label">Articles cités</div></div>
+    <div class="met"><div class="met-val o">2020–25</div><div class="met-label">Période de revue</div></div>
+    <div class="met"><div class="met-val g">12</div><div class="met-label">Journaux d'impact</div></div>
+    <div class="met"><div class="met-val p">4.8+</div><div class="met-label">Impact factor moyen</div></div>
+  </div>
+  <ol class="ref-list">
+    <li><em>[IRENA 2024]</em> International Renewable Energy Agency. <em>Renewable Capacity Statistics 2024.</em></li>
+    <li><em>[De Soto 2006]</em> De Soto W. et al. <em>Improvement and validation of a model for photovoltaic array performance.</em> <strong>Solar Energy</strong> 80(1):78-88.</li>
+    <li><em>[Villalva 2009]</em> Villalva M.G. et al. <em>Comprehensive approach to modeling and simulation of photovoltaic arrays.</em> <strong>IEEE Trans. Power Electron.</strong> 24(5):1198-1208.</li>
+    <li><em>[Ayop 2018]</em> Ayop R., Tan C.W. <em>Design of boost converter based on maximum power point resistance.</em> <strong>Solar Energy</strong> 160:322-335.</li>
+    <li><em>[Mohan 2003]</em> Mohan N., Undeland T.M., Robbins W.P. <em>Power Electronics: Converters, Applications, and Design.</em> 3rd ed. Wiley.</li>
+    <li><em>[MDPI 2023]</em> Fatima S. et al. <em>Design and Analysis of Input Capacitor in DC–DC Boost Converter for PV Systems.</em> <strong>Sustainability</strong> 15(7):6321.</li>
+    <li><em>[Boubaker 2023]</em> Boubaker O. <em>MPPT techniques for PV systems: a systematic review in AI.</em> <strong>Discover Energy</strong> 3(1):1.</li>
+    <li><em>[Nat. Sci. Rep. 2025]</em> Xu L. et al. <em>A comprehensive study of recent MPPT techniques.</em> <strong>Scientific Reports</strong> 15.</li>
+    <li><em>[MDPI Energies 2024]</em> Chander A.H. et al. <em>LSTM Approach for Enhanced MPPT in Solar PV Systems.</em> <strong>Energies</strong> 5(4):42.</li>
+    <li><em>[Hochreiter 1997]</em> Hochreiter S., Schmidhuber J. <em>Long Short-Term Memory.</em> <strong>Neural Computation</strong> 9(8):1735-1780.</li>
+    <li><em>[Vaswani 2017]</em> Vaswani A. et al. <em>Attention is all you need.</em> <strong>NeurIPS</strong> 30.</li>
+    <li><em>[Al-Ali 2023]</em> Al-Ali E.M. et al. <em>Solar energy forecasting based on CNN–LSTM–transformer.</em> <strong>Mathematics</strong> 11(3):676.</li>
+    <li><em>[Agga 2022]</em> Agga A. et al. <em>CNN–LSTM for short-term PV power prediction.</em> <strong>Electric Power Systems Research</strong> 208:107908.</li>
+    <li><em>[Cho 2014]</em> Cho K. et al. <em>Learning phrase representations using RNN encoder-decoder.</em> <strong>arXiv</strong> 1406.1078.</li>
+    <li><em>[Motahhir 2020]</em> Motahhir S. et al. <em>The most used MPPT algorithms.</em> <strong>Journal of Cleaner Production</strong> 246:118983.</li>
+  </ol>
+</section>
+</main>
+
+<footer>
+  <h3>Optimisation du Rendement PV par Intelligence Artificielle</h3>
+  <p><strong>Mohamed Ayoub Essalami</strong> · ENIGA — École Nationale des Ingénieurs de Gafsa<br>
+  Laboratoire LPV · Centre de Recherche Borj Cedria, Tunisie<br>
+  <strong>2025–2026</strong> · BP Solar 485J · De Soto (2006) · Hochreiter (1997) · Vaswani (2017)</p>
+</footer>
+
+<!-- Chart.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<!-- Our scripts — ORDER MATTERS -->
+<script src="js/physics.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
